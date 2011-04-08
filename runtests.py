@@ -1,19 +1,23 @@
 #!/usr/bin/env python
 
+import os
 import re
 import subprocess
+import parser
 
-parser = './foo'
+TEST_FOLDER = 'tests'
 
 def getActualResult(string):
-	p = subprocess.Popen([ parser, string ])
+	return parser.fsm(string)
 
-
-def assertStartsWithNumber(f):
+def getFirstNum(f):
 	firstChar = f.read(1)
 	#print firstChar
 	firstNum = int(firstChar)
-	assert firstNum in [0,1,2,3]
+	return firstNum
+
+def assertStartNumber(num):
+	assert num in [0,1,2,3]
 
 def getItemFromLine(line):
 	#print line,
@@ -47,21 +51,31 @@ def getExpectedResult(f):
 	#print expectedResult
 	return expectedResult
 
-def test(fileName):
+def runTest(fileName):
 	f = open(fileName)
-	assertStartsWithNumber(f)
 
-	testString = getString(f)
-	#print testString
+	try:
+		num = getFirstNum(f)
+		assertStartNumber(num)
 
-	expectedResult = getExpectedResult(f)
-	#print expectedResult
+		testString = getString(f)
+		#print testString
 
-	actualResult = getActualResult(testString)
-	#print actualResult
+		expectedResult = getExpectedResult(f)
+		#print expectedResult
 
-	assert expectedResult == actualResult
+		actualResult = getActualResult(str(num) + testString)
+		#print actualResul
+		return expectedResult == actualResult
+	except:
+		return False
+
+
+def findTests():
+	files = os.listdir(TEST_FOLDER)
+	files.sort()
+	return files
 
 if __name__ == "__main__":
-	test('test1')
-
+	for test in findTests():
+		print "%s\t%s" % ( test, runTest(os.path.join(TEST_FOLDER, test)) )
