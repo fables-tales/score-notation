@@ -25,7 +25,7 @@ _score tokens supers (RampDown : rest) = 3 + _score tokens supers rest
 _score tokens supers (Corner : rest) = 2 + (tokens + supers) + _score tokens supers rest
 _score tokens supers (SuperUp : rest) = _score tokens (supers + 1) rest
 _score tokens supers (SuperDown : rest) = _score tokens supers rest
-_score tokens supers [] =  if (tokens > 0) then 2 else 0
+_score tokens supers [] =  if tokens > 0 then 2 else 0
 
 
 tokenToSuperInt :: Token -> Int
