@@ -1,3 +1,7 @@
+module Main where
+import System ( getArgs )
+
+
 data Token = Moved | TokenUp | TokenDown | RampUp | RampDown | Corner
             | SuperUp | SuperDown deriving (Show, Eq)
 
@@ -8,6 +12,8 @@ tokenize ('T' : 'u' : rest) = TokenUp : tokenize rest
 tokenize ('T' : 'd' : rest) = TokenDown : tokenize rest
 tokenize ('R' : 'u' : rest) = RampUp : tokenize rest
 tokenize ('R' : 'd' : rest) = RampDown : tokenize rest
+
+
 tokenize ('C' : rest) = Corner : tokenize rest
 tokenize ('S' : 'u' : rest) = SuperUp : tokenize rest
 tokenize ('S' : 'd' : rest) = SuperDown : tokenize rest
@@ -30,3 +36,23 @@ hasSuperAtEnd a = ((reverse (filter (\x -> x == SuperUp || x == SuperDown) a)) +
 score :: [Token] -> Int
 score a = let score = _score 0 0 a in
             if hasSuperAtEnd a then 2*score else score
+
+scoreFromString :: String -> Int
+scoreFromString = score . tokenize
+
+test :: [Bool]
+test = [scoreFromString "M" == 1,
+        scoreFromString "MC" == 3,
+        scoreFromString "MTuTd" == 1,
+        scoreFromString "MSu" == 2,
+        scoreFromString "MRu" == 4,
+        scoreFromString "MRuRd" == 7,
+        scoreFromString "MTuRuCRd" == 10
+       ]
+
+allPass :: [Bool] -> Bool
+allPass = all (== True)
+
+main :: IO()
+main = do args <- getArgs;
+          if allPass test then (putStrLn . show . score . tokenize) (head args) else error "tests fail";
