@@ -65,8 +65,12 @@ def runTest(fileName):
 		#print expectedResult
 
 		actualResult = getActualResult(str(num) + testString)
-		#print actualResul
-		return expectedResult == actualResult
+		#print actualResult
+		result = expectedResult == actualResult
+		if not result:
+			return "exp: %d, got: %d" % (expectedResult, actualResult)
+		else:
+			return True
 	except:
 		return False
 
