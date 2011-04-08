@@ -54,28 +54,28 @@ def getExpectedResult(f):
 def runTest(fileName):
 	f = open(fileName)
 
+	num = getFirstNum(f)
+	assertStartNumber(num)
+
+	testString = getString(f)
+	#print testString
+
+	fullTestString = str(num) + testString
+	#print fullTestString
+
+	expectedResult = getExpectedResult(f)
+	#print expectedResult
 	try:
-		num = getFirstNum(f)
-		assertStartNumber(num)
-
-		testString = getString(f)
-		#print testString
-
-		fullTestString = str(num) + testString
-		#print fullTestString
-
-		expectedResult = getExpectedResult(f)
-		#print expectedResult
-
 		actualResult = getActualResult(fullTestString)
-		#print actualResult
-		result = expectedResult == actualResult
-		if not result:
-			return "exp: %d, got: %d" % (expectedResult, actualResult)
-		else:
-			return True
 	except:
 		return False
+
+	#print actualResult
+	result = expectedResult == actualResult
+	if not result:
+		return "exp: %d, got: %d" % (expectedResult, actualResult)
+	else:
+		return True
 
 
 def findTests():
