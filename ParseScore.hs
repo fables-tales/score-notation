@@ -62,4 +62,4 @@ allPass = all (== True)
 
 main :: IO()
 main = do args <- getArgs;
-          if allPass test then (putStrLn . show . score . tokenize) (head args) else error ("tests fail: " ++ (show test));
+          if allPass test then (print . score . tokenize) (head args) else error ("tests fail: " ++ show test);
