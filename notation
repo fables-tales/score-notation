@@ -1,10 +1,21 @@
+<a number from 0-3> -> the starting position of the robot 0
+corner opposite ramp is 1
+corner on the way into ramp is 0
+corner on way out of ramp is 2
+corner nearest ramp is 3
+
 M -> has moved -> 1 point
+B -> moves backward over a corner -> backs++
 Tu -> Token up -> ntokens++
 Td -> Token Down -> ntokens--
-Ru -> Ramp up -> 3 points
-Rd -> Ramp down -> 3 points
-C -> corner passed -> 2 points + ntokens
-Su -> Super token up -> stoken++, ntokens++
-Sd -> Super Token down -> stoken--, ntokens--
-
-at end of match: score += if tokens greater than zero 2 else 0 
+Ru -> Ramp up -> if ((corners + start position) % 4 == 0) then 3 points, onRamp = true 
+Rd -> Ramp down -> if ((corners + start position) % 4 == 1) then 3 points, onRamp = false
+C -> corner passed -> if (backs > 0) then backs--  
+                      else (
+                            2 points + ntokens + stokens, 
+                            if (corners + start position) % 4 == 3 
+                               then (onRamp = false),
+                            corners++
+                           )  
+Su -> Super token up -> stokens++
+Sd -> Super Token down -> stokens--
