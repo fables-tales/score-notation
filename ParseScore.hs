@@ -34,7 +34,7 @@ tokenToSuperInt SuperDown = -1
 tokenToSuperInt _ = 0
 
 hasSuperAtEnd :: [Token] -> Bool
-hasSuperAtEnd a = (sum (map (tokenToSuperInt) a)) > 0
+hasSuperAtEnd a = sum (map tokenToSuperInt a) > 0
 
 
 score :: [Token] -> Int
