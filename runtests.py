@@ -61,10 +61,13 @@ def runTest(fileName):
 		testString = getString(f)
 		#print testString
 
+		fullTestString = str(num) + testString
+		#print fullTestString
+
 		expectedResult = getExpectedResult(f)
 		#print expectedResult
 
-		actualResult = getActualResult(str(num) + testString)
+		actualResult = getActualResult(fullTestString)
 		#print actualResult
 		result = expectedResult == actualResult
 		if not result:
