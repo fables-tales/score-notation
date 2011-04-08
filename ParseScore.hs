@@ -12,8 +12,6 @@ tokenize ('T' : 'u' : rest) = TokenUp : tokenize rest
 tokenize ('T' : 'd' : rest) = TokenDown : tokenize rest
 tokenize ('R' : 'u' : rest) = RampUp : tokenize rest
 tokenize ('R' : 'd' : rest) = RampDown : tokenize rest
-
-
 tokenize ('C' : rest) = Corner : tokenize rest
 tokenize ('S' : 'u' : rest) = SuperUp : tokenize rest
 tokenize ('S' : 'd' : rest) = SuperDown : tokenize rest
