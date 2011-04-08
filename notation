@@ -1,0 +1,8 @@
+M -> has moved -> 1 point
+Tu -> Token up -> ntokens++
+Td -> Token Down -> ntokens--
+Ru -> Ramp up -> 3 points
+Rd -> Ramp down -> 3 points
+C -> corner passed -> 2 points + ntokens
+Su -> Super token up -> stoken++
+Sd -> Super Token down -> stoken++
