@@ -24,7 +24,7 @@ def fsm(string):
             elif instruction[1] == "d":
                 ntokens -= 1
             else:
-                print "nope"
+                return -1
 
         elif instruction == "S":
             instruction += string[i+1]
@@ -35,25 +35,25 @@ def fsm(string):
             elif instruction[1] == "d":
                 supers -= 1
             else:
-                print "nope"
+                return -1
         elif instruction == "R":
             instruction += string[i+1]
             i += 1
             if instruction[1] == "u":
                 #ramp up case
-                if (corners + startpos) % 4 == 0 and not onramp:
+                if (startpos - corners) % 4 == 0 and not onramp and backs == 0:
                     score += 3
                     onramp = True
             elif instruction[1] == "d":
                 #ramp down case
-                if (corners + startpos) % 4 == 1 and onramp:
+                if (startpos - corners) % 4 == 3 and onramp and backs == 0:
                     score += 3
                     onramp = False
         elif instruction == "C":
            if (backs > 0): backs -= 1 
            else:
             score += 2 + ntokens + supers
-            if (corners + startpos) % 4 == 3:
+            if (startpos - corners) % 4 == 1:
                 onramp = False
             corners += 1
         i += 1

@@ -8,12 +8,12 @@ M -> has moved -> 1 point
 B -> moves backward over a corner -> backs++
 Tu -> Token up -> ntokens++
 Td -> Token Down -> ntokens--
-Ru -> Ramp up -> if ((corners + start position) % 4 == 0) then 3 points, onRamp = true 
-Rd -> Ramp down -> if ((corners + start position) % 4 == 1) then 3 points, onRamp = false
+Ru -> Ramp up -> if ((start position - corners) % 4 == 0 and backs == 0) then 3 points, onRamp = true 
+Rd -> Ramp down -> if ((start position - corners) % 4 == 3 and backs == 0) then 3 points, onRamp = false
 C -> corner passed -> if (backs > 0) then backs--  
                       else (
                             2 points + ntokens + stokens, 
-                            if (corners + start position) % 4 == 3 
+                            if (startpos - corners) % 4 == 1
                                then (onRamp = false),
                             corners++
                            )  
